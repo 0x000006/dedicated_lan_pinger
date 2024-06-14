@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import zerox06.dslp.DSLPMod;
+import zerox06.dslp.DSLP;
 import zerox06.dslp.network.BetterLanPinger;
 
 import java.io.IOException;
@@ -28,11 +28,11 @@ public abstract class MinecraftDedicatedServerMixin {
     @Inject(method = "setupServer()Z", at = @At(value = "INVOKE", target = "Lnet/minecraft/server/dedicated/MinecraftDedicatedServer;isOnlineMode()Z", ordinal = 0))
     void beforeLevelLoad(CallbackInfoReturnable<Boolean> cir) {
         try {
-            lanPinger = new BetterLanPinger(this::createLanMotd, String.valueOf(getPort()));
+            lanPinger = new BetterLanPinger(this::createLanMotd, getPort());
             lanPinger.start();
         } catch (IOException e) {
-            DSLPMod.LOGGER.warn("**** FAILED TO CREATE LAN PINGER!");
-            DSLPMod.LOGGER.warn("The exception was: {}", e.toString());
+            DSLP.LOGGER.warn("**** FAILED TO CREATE LAN PINGER!");
+            DSLP.LOGGER.warn("The exception was: {}", e.toString());
         }
     }
 

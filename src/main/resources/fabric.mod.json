@@ -14,7 +14,7 @@
   "environment": "server",
   "entrypoints": {
     "server": [
-      "zerox06.dslp.DSLPMod"
+      "zerox06.dslp.DSLP"
     ]
   },
   "mixins": [
@@ -22,6 +22,6 @@
   ],
   "depends": {
     "fabricloader": ">=${loader_version}",
-    "minecraft": ">=1.19"
+    "minecraft": ">=1.20.5"
   }
 }

@@ -1,7 +1,7 @@
 package zerox06.dslp.network;
 
 import net.minecraft.util.logging.UncaughtExceptionLogger;
-import zerox06.dslp.DSLPMod;
+import zerox06.dslp.DSLP;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
@@ -19,24 +19,24 @@ public class BetterLanPinger extends Thread {
     private boolean running = true;
     private final String serverPort;
 
-    public BetterLanPinger(Supplier<String> MOTDSupplier, String serverPort) throws IOException {
+    public BetterLanPinger(Supplier<String> MOTDSupplier, int serverPort) throws IOException {
         super("Lan Pinger Thread");
         this.MOTDSupplier = MOTDSupplier;
-        this.serverPort = serverPort;
+        this.serverPort = String.valueOf(serverPort);
         setDaemon(true);
-        setUncaughtExceptionHandler(new UncaughtExceptionLogger(DSLPMod.LOGGER));
+        setUncaughtExceptionHandler(new UncaughtExceptionLogger(DSLP.LOGGER));
         this.socket = new DatagramSocket();
     }
 
     public void run() {
-        while(!this.isInterrupted() && this.running) {
+        while (!this.isInterrupted() && this.running) {
             try {
                 byte[] announcement = createAnnouncement();
-                InetAddress inetAddress = InetAddress.getByName(PING_ADDRESS);
-                DatagramPacket packet = new DatagramPacket(announcement, announcement.length, inetAddress, PING_PORT);
+                InetAddress address = InetAddress.getByName(PING_ADDRESS);
+                DatagramPacket packet = new DatagramPacket(announcement, announcement.length, address, PING_PORT);
                 socket.send(packet);
             } catch (IOException e) {
-                DSLPMod.LOGGER.warn("Exception in Lan Pinger Thread: {}", e.getMessage());
+                DSLP.LOGGER.warn("Exception in Lan Pinger Thread: {}", e.getMessage());
                 break;
             }
 
