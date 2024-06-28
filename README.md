@@ -7,6 +7,6 @@ DSLP makes the server broadcast its presence on LAN, so you can find it easier.
 
 It is **server-side only**, clients do not need this mod installed.
 
-![Server List with a LAN server and a Regular Server on it](https://github.com/0x000006/dslp/blob/1.19.x-1.20.x/screenshots/1.png)
+![Server List with a LAN server and a Regular Server on it](https://github.com/0x000006/dslp/blob/master/screenshots/1.png)
 
 There are no plans to port it to Forge/NeoForge.
